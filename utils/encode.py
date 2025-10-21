@@ -1,11 +1,18 @@
 import clingo
 import sys
 
+import clingo
+import sys
+
 ORIENTATIONS = {
-    '^': (-1, 0),  # Body up
-    'v': (1, 0),   # Body down
-    '>': (0, 1),   # Body right
-    '<': (0, -1),  # Body left
+    '^': 'up',    # Body up
+    'v': 'down',  # Body down
+    '>': 'right', # Body right
+    '<': 'left',  # Body left
+    'U': 'up',    # Bulb up
+    'D': 'down',  # Bulb down
+    'R': 'right', # Bulb right
+    'L': 'left',  # Bulb left
 }
 
 BULB_CHARS = ['U', 'D', 'R', 'L']
@@ -54,12 +61,9 @@ def encode_thermometers(input_file, output_file):
     for r, line in enumerate(lines):
         for c, char in enumerate(line):
             if char in BULB_CHARS:
-                facts.append(f'bulb_at({r},{c}).')
+                facts.append(f'bulb_at({r},{c},{ORIENTATIONS[char]}).')
             if char in BODY_CHARS:
-                dr, dc = ORIENTATIONS[char]
-                r0 = r - dr
-                c0 = c - dc
-                facts.append(f'body_at({r0},{c0},{r},{c}).')
+                facts.append(f'body_at({r},{c},{ORIENTATIONS[char]}).')
 
     with open(output_file, 'w') as out_file:
         out_file.write('\n'.join(facts))
