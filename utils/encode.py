@@ -1,9 +1,6 @@
 import clingo
 import sys
 
-import clingo
-import sys
-
 ORIENTATIONS = {
     '^': 'up',    # Body up
     'v': 'down',  # Body down
@@ -17,6 +14,7 @@ ORIENTATIONS = {
 
 BULB_CHARS = ['U', 'D', 'R', 'L']
 BODY_CHARS = ['^', 'v', '>', '<']
+TURN_CHARS = ['0', '1', '2', '3']
 
 def encode_thermometers(input_file, output_file):
     """
@@ -62,8 +60,15 @@ def encode_thermometers(input_file, output_file):
         for c, char in enumerate(line):
             if char in BULB_CHARS:
                 facts.append(f'bulb_at({r},{c},{ORIENTATIONS[char]}).')
-            if char in BODY_CHARS:
+            elif char in BODY_CHARS:
                 facts.append(f'body_at({r},{c},{ORIENTATIONS[char]}).')
+            elif char in TURN_CHARS:
+                facts.append(f'turn_at({r},{c},{char}).')
+            else:
+                raise ValueError(
+                    f"Invalid character '{char}' found at position ({r}, {c}) "
+                    f"in the grid. Allowed characters are: {', '.join(BULB_CHARS + BODY_CHARS + TURN_CHARS)}."
+                )
 
     with open(output_file, 'w') as out_file:
         out_file.write('\n'.join(facts))
