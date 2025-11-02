@@ -2,7 +2,7 @@
 
 The **Thermometers puzzle** can be described as follows: we have a grid of $n
 \times n$ cells initially filled with empty thermometers. Each being a
-horizontal or vertical line (of size $> 1$) with a "bulb" at one of its ends.
+horizontal or vertical line (of size $> 1$) or a path that includes turns, with a "bulb" at one of its ends.
 The puzzle consists of filling the thermometers with mercury, starting from the
 bulb and going towards their opposite end without gaps. Thermometers can be
 left partially filled or even empty, but the number of cells filled with
@@ -13,7 +13,7 @@ grid  ([Try the puzzle online here!](https://www.puzzle-thermometers.com/)).
 the initial empty grid on the left and the same grid solved with filled mercury
 on the right."
 src="https://github.com/user-attachments/assets/68578310-88bc-4117-bab9-aff11a398dfd"
-/> <p><span style="font-size: 0.9em;"><i>Example of a 4x4 Thermometers puzzle.
+/> <p><span style="font-size: 0.9em;"><i>Example of a classic 4x4 Thermometers puzzle.
 Left: initial layout, Right: solved puzzle.</i></span></p> </div>
 
 This assignment was developed as part of the course _Reasoning and Planning
@@ -59,6 +59,7 @@ thermometer part:
   and `L` (left).
 - **Vertical body** segments can point `^` (up) or `v` (down).
 - **Horizontal body** segments can point `>` (right) or `<` (left).
+- **Turn segments** are represented by digits `0` (└), `1` (┏), `2` (┐), and `3` (┘).
 
 Once the grid is complete, the **final two lines** contain the clue numbers:
 The first line lists the vertical (column) counts, and the second line lists the
@@ -84,8 +85,8 @@ The encoding uses these predicates:
   ranges are defined as `r(0..n-1)` and `c(0..n-1)`.
 - **Clues**: `row_clue(row, count)` and `col_clue(column, count)` define the
   number of filled cells per row and column.
-- **Layout**: `bulb_at(row, column, orientation)` and `body_at(row, column,
-  orientation)` define the thermometer structure.
+- **Layout**: `bulb_at(row, column, orientation)`, `body_at(row, column,
+  orientation)`, and `turn_at(row, column, type)` define the thermometer structure.
 
 For the $4 \times 4$ example puzzle, the corresponding facts would be:
 ```lp
@@ -142,7 +143,7 @@ solution, and the visualization of the solution.
      state to a text file (`-sol.txt`).
      ```bash
      # This generates a file named domain_example-sol.txt
-     python3 utils/decode-save-file.py domain_example.lp
+     python3 utils/decode-save-file.py thermo.lp domain_example.lp
      ```
    - Generate the **solution picture**. This script uses `pygame` to draw the
      calculated solution and saves the result as a PNG image.
