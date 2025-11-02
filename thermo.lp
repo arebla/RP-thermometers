@@ -12,7 +12,7 @@ cell(R, C) :- r(R), c(C).
 0 { fill(R, C) } 1 :- bulb_at(R, C, _).
 0 { fill(R, C) } 1 :- body_at(R, C, _).
 
-% -- Constraints:
+% --- Constraints:
 % C1: We do not allow models in which a body cell is filled but its preceding
 % bulb or body is not
 :- body_at(R, C, up), fill(R, C), body_at(R0, C0, up), not fill(R0, C0), R0=R+1, C0=C.
@@ -36,5 +36,5 @@ cell(R, C) :- r(R), c(C).
 % is different than Clue
 :- col_clue(C, Clue), Clue != #count{R: fill(R, C)}.
 
-% Show one solution
+% Show only predicates of type fill(R,C)
 #show fill/2.

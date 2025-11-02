@@ -8,7 +8,7 @@ cell(R, C) :- r(R), c(C).
 % Choice rule: Each cell is either filled with mercury or not
 0 { fill(R, C) } 1 :- cell(R, C).
 
-% -- Constraints:
+% --- Constraints:
 % C1: We do not allow models in which a body cell is filled but its predecessor
 % is not
 % Note that the conjunction of body_at's leads to bulb_at
@@ -16,13 +16,11 @@ cell(R, C) :- r(R), c(C).
 
 % C2: We do not allow models in which the number of filled cells for row R is
 % different than Clue
-:- row_clue(R, Clue), Clue != { fill(R, C) : c(C) }.
-%:- row_clue(R, Clue), Clue != #count{C: fill(R, C)}.
+:- row_clue(R, Clue), Clue != #count{C: fill(R, C)}.
 
 % C3: We do not allow models in which the number of filled cells for column C
 % is different than Clue
-:- col_clue(C, Clue), Clue != { fill(R, C) : r(R) }.
-%:- col_clue(C, Clue), Clue != #count{R: fill(R, C)}.
+:- col_clue(C, Clue), Clue != #count{R: fill(R, C)}.
 
-% Show one solution
+% Show only predicates of type fill(R,C)
 #show fill/2.
