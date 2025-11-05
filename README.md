@@ -12,7 +12,7 @@ grid  ([Try the puzzle online here!](https://www.puzzle-thermometers.com/)).
 <div align="center"> <img width="500" alt="A 4x4 Thermometers puzzle showing
 the initial empty grid on the left and the same grid solved with filled mercury
 on the right."
-src="https://github.com/user-attachments/assets/68578310-88bc-4117-bab9-aff11a398dfd"
+src="https://github.com/user-attachments/assets/5c227a6e-2842-4b01-b64e-7b39077ef48f"
 /> <p><span style="font-size: 0.9em;"><i>Example of a classic 4x4 Thermometers puzzle.
 Left: initial layout, Right: solved puzzle.</i></span></p> </div>
 
